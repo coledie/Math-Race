@@ -80,7 +80,7 @@
             return output;
         }
 
-        var output = "".concat(number(), operator(), number(), " = ?");
+        var output = "".concat(number(), operator(), number(min=1), " = ?");
 
         document.getElementById('math-problem').innerHTML = output;
     </script>
