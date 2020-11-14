@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-md-auto">
-                <h1>Math Competition with a Computer</h1>
+                <h1 id="title">Math Competition with a Computer</h1>
             </div> 
         </div>
     </div>
@@ -168,10 +168,16 @@
         var comp_seconds = Math.floor((delta % (1000 * 60)) / 1000);
         var comp_milliseconds = Math.floor((delta % (60)));
         comp_milliseconds = double_pad(comp_milliseconds);
+        comp_milliseconds = comp_milliseconds.concat(number(min=10, max=99))
 
         //
         function submit(){
             console.log("submitted");
+
+            clearInterval(y);
+            $('.math').hide()
+            $('#title').hide();
+
             $('#lost-modal').modal();
 
             var output;
