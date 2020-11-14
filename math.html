@@ -100,9 +100,11 @@
             }
 
             if (seconds === 0){
-                time_start = new Date().getTime();
-                $('.math').show();
-                $('.countdown').hide();
+                if (!document.getElementById('sound_drum').muted){
+                    time_start = new Date().getTime();
+                    $('.math').show();
+                    $('.countdown').hide();
+                }
                 document.getElementById('sound_drum').muted = true;
             }
 
