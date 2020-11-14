@@ -4,39 +4,69 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <p id="problem">Broken!!</p>
-    <script id="problem_setter">
-        function number(min=0, max=10){
-            return Math.floor(Math.random() * (max - min)) + min;
-        }
-        function operator(){
-            var operators = ['+', '-', '*', '/'];
-            return operators[Math.floor(Math.random() * operators.length)];
-        }
+      <!-- math problem -->
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col-md-auto">
+            <h1 id="problem">2 + 3 = ?</h1>
 
-        var output = "".concat(number(), operator(), number());
-
-        document.getElementById('problem').innerHTML = output;
-    </script>
-
-    <!-- Make sure to hold to right side -->
-    <p id="timer">0s</p>
-    <script id="timer_setter">
-        var time_start = new Date().getTime();
-
-        var decimals = 3;
-
-        var x = setInterval(function() {
-            var now = new Date().getTime();
-            var delta = now - time_start;
-
-            var seconds = (delta % (1000 * 60)) / 1000;
-            seconds = (Math.round(seconds * 10**decimals) / 10**decimals).toFixed(decimals);
-            document.getElementById("timer").innerHTML = seconds + "s";
-
-        }, 1);
-    </script>
-
+            <script id="problem_setter">
+                function number(min=0, max=10){
+                    return Math.floor(Math.random() * (max - min)) + min;
+                }
+                function operator(){
+                    var operators = ['+', '-', '*', '/'];
+                    var output = operators[Math.floor(Math.random() * operators.length)];
+                    output = "".concat(" ", output, " ");
+                    return output;
+                }
+        
+                var output = "".concat(number(), operator(), number());
+        
+                document.getElementById('problem').innerHTML = output;
+            </script>
+        </div>
+        </div>
+      </div>
+      <!-- timer -->
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col-md-auto">
+            <h2 id="timer">00:00:00</h2>
+            <script id="timer_setter">
+                var time_start = new Date().getTime();
+        
+                var decimals = 2;
+        
+                var x = setInterval(function() {
+                    var now = new Date().getTime();
+                    var delta = now - time_start;
+        
+                    var seconds = (delta % (1000 * 60)) / 1000;
+                    seconds = (Math.round(seconds * 10**decimals) / 10**decimals).toFixed(decimals);
+                    document.getElementById("timer").innerHTML = seconds + "s";
+        
+                }, 1);
+            </script>
+          </div>
+        </div>
+      </div>
+      <!-- input boxes -->
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col-md-4">
+            <label for="inputEmail4">You</label>
+            <input type="text" class="form-control" id="user-answer" placeholder="Answer">
+          </div>
+          <div class="col-md-2 justify-content-center">
+            <button id="submit" type="button" class="btn btn-primary" style="height:100%;width:100%">Submit</button>
+          </div>
+          <div class="col-md-4">
+            <label for="inputEmail4">Computer</label>
+            <input type="text" class="form-control" id="computer-answer" placeholder="Answer">
+          </div>
+        </div>
+      </div>
     <script src="math.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
