@@ -24,8 +24,8 @@
                     </button>
                 </div>
                 <div class="modal-body" style="background: rgb(228, 69, 69);">
-                    <h5 style="color: white;">The computer solved the problem in <span id="computer-time">0.0001</span> seconds</h5>
-                    <h5 style="color: white;">You solved the problem in <span id="computer-time">3.14</span> seconds</h5>
+                    <h5 style="color: white;">The computer solved the problem in <span id="computer-time">X</span> seconds.</h5>
+                    <h5 style="color: white;">You solved the problem in <span id="player-time">X</span> seconds.</h5>
                 </div>
                 <div class="modal-footer" style="background: rgb(228, 69, 69);">
                     <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
@@ -64,31 +64,76 @@
         </div>
     </div>
 
-    <script id="timer_setter">
+    <script>
         function pad(d) {
             return (d < 10) ? '0' + d.toString() : d.toString();
         }
+        function double_pad(d) {
+            var output = d.toString();
+            if (d < 10){
+                output = '00' + output;
+            } else if (d < 100) {
+                output = '0' + output
+            }
+            return output;
+        }
+
 
         var time_start = new Date().getTime();
 
+        //
         var decimals = 2;
-
+        var minutes, seconds, milliseconds;
         var x = setInterval(function() {
             var now = new Date().getTime();
             var delta = now - time_start;
 
-            var minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((delta % (1000 * 60)) / 1000);
-            var milliseconds = Math.floor((delta % (10 * 60)) / 10);
+            minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
+            seconds = Math.floor((delta % (1000 * 60)) / 1000);
+            milliseconds = Math.floor((delta % (10 * 60)) / 10);
 
-            minutes = pad(minutes);
-            seconds = pad(seconds);
             milliseconds = pad(milliseconds);
 
-            var output = "".concat(minutes, ":", seconds, ":", milliseconds);
+            var output = "".concat(pad(minutes), ":", pad(seconds), ":", milliseconds);
             document.getElementById("timer").innerHTML = output;
 
         }, 1);
+
+        //
+        var problem = document.getElementById('math-problem').innerHTML.slice(0, -3)
+        var solution = eval(problem);
+
+        solution = Math.floor(solution * 10**2) / 10**2
+
+        document.getElementById('computer-answer').value = solution;
+        
+        var now = new Date().getTime();
+        var delta = now - time_start;
+        var comp_seconds = Math.floor((delta % (1000 * 60)) / 1000);
+        var comp_milliseconds = Math.floor((delta % (60)));
+        comp_milliseconds = double_pad(comp_milliseconds);
+
+        //
+        function submit(){
+            console.log("submitted");
+            $('#lost-modal').modal();
+
+            var output;
+            if (minutes != "0") {
+                if (minutes == "1"){
+                    output = "".concat(minutes, " minute ", seconds, '.', milliseconds);
+                } else {
+                    output = "".concat(minutes, " minutes ", seconds, '.', milliseconds);
+                }
+            } else {
+                output = "".concat(seconds, '.', milliseconds);
+            }
+            document.getElementById("player-time").innerHTML = output;
+
+            var comp_output = "".concat(comp_seconds, '.', comp_milliseconds);
+            document.getElementById("computer-time").innerHTML = comp_output;
+
+        }
     </script>
 
     <script id="problem_setter">
@@ -105,22 +150,6 @@
         var output = "".concat(number(), operator(), number(min=1), " = ?");
 
         document.getElementById('math-problem').innerHTML = output;
-    </script>
-
-    <script id="computer">
-        var problem = document.getElementById('math-problem').innerHTML.slice(0, -3)
-        var solution = eval(problem);
-
-        solution = Math.floor(solution * 10**2) / 10**2
-
-        document.getElementById('computer-answer').value = solution;
-    </script>
-
-    <script id="submit_js">
-        function submit(){
-            console.log("submitted");
-            $('#lost-modal').modal();
-        }
     </script>
     
     <script src="math.js"></script>
