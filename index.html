@@ -4,42 +4,86 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-      <!-- header -->
-      <div class="container">
+    <!-- header -->
+    <div class="container">
         <div class="row justify-content-md-center">
-          <div class="col-md-auto">
-            <h1>Math Competition with a Computer</h1>
-          </div>
+            <div class="col-md-auto">
+                <h1>Math Competition with a Computer</h1>
+            </div> 
         </div>
-      </div>
-      <!-- math problem -->
-      <div class="container" id="content">
+    </div>
+    
+    <div class="container" id="content">
+        <!-- math problem -->
         <div class="row justify-content-md-center">
-          <div class="col-md-auto" style="border-style: solid;">
-            <h1 id="math-problem">2 + 3 = ?</h1>
-          </div>
+            <div class="col-md-auto" style="border-style: solid;">
+                <h1 id="math-problem">2 + 3 = ?</h1>
+            </div>
         </div>
         <!-- timer -->
         <div class="row justify-content-md-center">
-          <div class="col-md-auto">
-            <h2 id="timer">00:00:00</h2>
-          </div>
+            <div class="col-md-auto">
+                <h2 id="timer">00:00:00</h2>
+            </div>
         </div>
         <!-- input boxes -->
         <div class="row justify-content-md-center">
-          <div class="col-md-4">
-            <label>You</label>
-            <input type="text" class="form-control" id="user-answer" placeholder="Answer">
-          </div>
-          <div class="col-md-2 justify-content-center">
-            <button id="submit" type="button" class="btn btn-primary" style="height:100%;width:100%">Submit</button>
-          </div>
-          <div class="col-md-4">
-            <label>Computer</label>
-            <input type="text" class="form-control" id="computer-answer" placeholder="Answer" disabled>
-          </div>
+            <div class="col-md-4">
+                <label>You</label>
+                <input type="text" class="form-control" id="user-answer" placeholder="Answer">
+            </div>
+            <div class="col-md-2 justify-content-center">
+                <button id="submit" type="button" class="btn btn-primary" style="height:100%;width:100%">Submit</button>
+            </div>
+            <div class="col-md-4">
+                <label>Computer</label>
+                <input type="text" class="form-control" id="computer-answer" placeholder="Answer" disabled>
+            </div>
         </div>
-      </div>
+    </div>
+    <script id="timer_setter">
+        function pad(d) {
+            return (d < 10) ? '0' + d.toString() : d.toString();
+        }
+
+        var time_start = new Date().getTime();
+
+        var decimals = 2;
+
+        var x = setInterval(function() {
+            var now = new Date().getTime();
+            var delta = now - time_start;
+
+            var minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((delta % (1000 * 60)) / 1000);
+            var milliseconds = Math.floor((delta % (10 * 60)) / 10);
+
+            minutes = pad(minutes);
+            seconds = pad(seconds);
+            milliseconds = pad(milliseconds);
+
+            var output = "".concat(minutes, ":", seconds, ":", milliseconds);
+            document.getElementById("timer").innerHTML = output;
+
+        }, 1);
+    </script>
+
+    <script id="problem_setter">
+        function number(min=0, max=10){
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+        function operator(){
+            var operators = ['+', '-', '*', '/'];
+            var output = operators[Math.floor(Math.random() * operators.length)];
+            output = "".concat(" ", output, " ");
+            return output;
+        }
+
+        var output = "".concat(number(), operator(), number());
+
+        document.getElementById('problem').innerHTML = output;
+    </script>
+    
     <script src="math.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
