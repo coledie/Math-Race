@@ -71,7 +71,48 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
     <script>
+        $('.math').hide()
+
+        //
+        var time_start = new Date().getTime();
+
+        var seconds;
+        var x = setInterval(function() {
+            var now = new Date().getTime();
+            var delta = time_start - now;
+
+            seconds = 6 + Math.floor((delta % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown-number").innerHTML = seconds;
+            
+            if (seconds === 0){
+                time_start = new Date().getTime();
+                $('.math').show();
+                $('.countdown').hide();
+            }
+
+        }, 1);
+
+        //
+        function number(min=0, max=10){
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+        function operator(){
+            var operators = ['+', '-', '*', '/'];
+            var output = operators[Math.floor(Math.random() * operators.length)];
+            output = "".concat(" ", output, " ");
+            return output;
+        }
+
+        var output = "".concat(number(), operator(), number(min=1), " = ?");
+
+        document.getElementById('math-problem').innerHTML = output;
+
         function pad(d) {
             return (d < 10) ? '0' + d.toString() : d.toString();
         }
@@ -84,9 +125,6 @@
             }
             return output;
         }
-
-
-        var time_start = new Date().getTime();
 
         //
         var decimals = 2;
@@ -142,26 +180,5 @@
 
         }
     </script>
-
-    <script id="problem_setter">
-        function number(min=0, max=10){
-            return Math.floor(Math.random() * (max - min)) + min;
-        }
-        function operator(){
-            var operators = ['+', '-', '*', '/'];
-            var output = operators[Math.floor(Math.random() * operators.length)];
-            output = "".concat(" ", output, " ");
-            return output;
-        }
-
-        var output = "".concat(number(), operator(), number(min=1), " = ?");
-
-        document.getElementById('math-problem').innerHTML = output;
-    </script>
-    
-    <script src="math.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
