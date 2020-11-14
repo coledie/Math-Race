@@ -95,6 +95,8 @@
             document.getElementById("countdown-number").innerHTML = seconds;
             
             if (seconds != prev_seconds){
+                document.getElementById('sound_drum').pause();
+                document.getElementById('sound_drum').currentTime = 0;
                 document.getElementById('sound_drum').play();
                 prev_seconds = seconds;
             }
