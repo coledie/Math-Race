@@ -4,8 +4,20 @@
 
 </head>
 <body>
-    test
-    <script src="math.js"></script>
+    <p id="problem">Broken!!</p>
+    <script id="problem_setter">
+        function number(min=0, max=10){
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+        function operator(){
+            var operators = ['+', '-', '*', '/'];
+            return operators[Math.floor(Math.random() * operators.length)];
+        }
+
+        var output = "".concat(number(), operator(), number());
+
+        document.getElementById('problem').innerHTML = output;
+    </script>
 
 </body>
 </html>
