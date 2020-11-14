@@ -79,9 +79,9 @@
             return output;
         }
 
-        var output = "".concat(number(), operator(), number());
+        var output = "".concat(number(), operator(), number(), " = ?");
 
-        document.getElementById('problem').innerHTML = output;
+        document.getElementById('math-problem').innerHTML = output;
     </script>
     
     <script src="math.js"></script>
