@@ -34,6 +34,10 @@
           <div class="col-md-auto">
             <h2 id="timer">00:00:00</h2>
             <script id="timer_setter">
+                function pad(d) {
+                    return (d < 10) ? '0' + d.toString() : d.toString();
+                }
+
                 var time_start = new Date().getTime();
         
                 var decimals = 2;
@@ -42,9 +46,16 @@
                     var now = new Date().getTime();
                     var delta = now - time_start;
         
-                    var seconds = (delta % (1000 * 60)) / 1000;
-                    seconds = (Math.round(seconds * 10**decimals) / 10**decimals).toFixed(decimals);
-                    document.getElementById("timer").innerHTML = seconds + "s";
+                    var minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((delta % (1000 * 60)) / 1000);
+                    var milliseconds = Math.floor((delta % (10 * 60)) / 10);
+
+                    minutes = pad(minutes);
+                    seconds = pad(seconds);
+                    milliseconds = pad(milliseconds);
+
+                    var output = "".concat(minutes, ":", seconds, ":", milliseconds);
+                    document.getElementById("timer").innerHTML = output;
         
                 }, 1);
             </script>
