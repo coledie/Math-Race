@@ -4,37 +4,47 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-      <!-- math problem -->
+      <!-- header -->
       <div class="container">
         <div class="row justify-content-md-center">
           <div class="col-md-auto">
-            <h1 id="math-problem">2 + 3 = ?</h1>
+            <h1>Math Competition with a Computer</h1>
           </div>
         </div>
       </div>
-      <!-- timer -->
+      <!-- math problem -->
       <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col-md-auto" style="border-style: solid;">
+            <h1 id="math-problem">2 + 3 = ?</h1>
+          </div>
+        </div>
         <div class="row justify-content-md-center">
           <div class="col-md-auto">
             <h2 id="timer">00:00:00</h2>
           </div>
         </div>
-      </div>
-      <!-- input boxes -->
-      <div class="container">
         <div class="row justify-content-md-center">
           <div class="col-md-4">
-            <label for="inputEmail4">You</label>
+            <label>You</label>
             <input type="text" class="form-control" id="user-answer" placeholder="Answer">
           </div>
           <div class="col-md-2 justify-content-center">
             <button id="submit" type="button" class="btn btn-primary" style="height:100%;width:100%">Submit</button>
           </div>
           <div class="col-md-4">
-            <label for="inputEmail4">Computer</label>
-            <input type="text" class="form-control" id="computer-answer" placeholder="Answer">
+            <label>Computer</label>
+            <input type="text" class="form-control" id="computer-answer" placeholder="Answer" disabled>
           </div>
         </div>
+      </div>
+      <!-- timer -->
+      <div class="container">
+        
+      </div>
+      <!-- input boxes -->
+      <div class="container">
+        
       </div>
     <script src="math.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
