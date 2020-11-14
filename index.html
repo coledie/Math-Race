@@ -41,6 +41,7 @@
             </div>
         </div>
     </div>
+
     <script id="timer_setter">
         function pad(d) {
             return (d < 10) ? '0' + d.toString() : d.toString();
@@ -82,6 +83,13 @@
         var output = "".concat(number(), operator(), number(), " = ?");
 
         document.getElementById('math-problem').innerHTML = output;
+    </script>
+
+    <script id="computer">
+        var problem = document.getElementById('math-problem').innerHTML.slice(0, -3)
+        var solution = eval(problem);
+
+        document.getElementById('computer-answer').value = solution;
     </script>
     
     <script src="math.js"></script>
