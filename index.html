@@ -89,6 +89,8 @@
         var problem = document.getElementById('math-problem').innerHTML.slice(0, -3)
         var solution = eval(problem);
 
+        solution = Math.floor(solution * 10**2) / 10**2
+
         document.getElementById('computer-answer').value = solution;
     </script>
     
