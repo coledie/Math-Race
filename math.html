@@ -76,7 +76,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <audio id="sound_drum" src="sounds/drum.mp3"></audio>
-
+    <audio id="sound_lose" src="sounds/lose.mp3"></audio>
 
     <script>
         $('.math').hide()
@@ -100,12 +100,11 @@
             }
 
             if (seconds === 0){
-                if (!document.getElementById('sound_drum').muted){
-                    time_start = new Date().getTime();
-                    $('.math').show();
-                    $('.countdown').hide();
-                }
+                time_start = new Date().getTime();
+                $('.math').show();
+                $('.countdown').hide();
                 document.getElementById('sound_drum').muted = true;
+                clearInterval(x);
             }
 
         }, 1);
@@ -141,7 +140,7 @@
         //
         var decimals = 2;
         var minutes, seconds, milliseconds;
-        var x = setInterval(function() {
+        var y = setInterval(function() {
             var now = new Date().getTime();
             var delta = now - time_start;
 
@@ -190,6 +189,7 @@
             var comp_output = "".concat(comp_seconds, '.', comp_milliseconds);
             document.getElementById("computer-time").innerHTML = comp_output;
 
+            document.getElementById('sound_lose').play();
         }
     </script>
 </body>
