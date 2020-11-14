@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <!-- header -->
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+                <h1>Math Competition with a Computer</h1>
+            </div> 
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="lost-modal" tabindex="-1" role="dialog" aria-labelledby="lost-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background: rgb(228, 69, 69);">
+                    <h1 class="modal-title" style="color: white;">You Lost!</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background: rgb(228, 69, 69);">
+                    <h5 style="color: white;">The computer solved the problem in <span id="computer-time">X</span> seconds.</h5>
+                    <h5 style="color: white;">You solved the problem in <span id="player-time">X</span> seconds.</h5>
+                </div>
+                <div class="modal-footer" style="background: rgb(228, 69, 69);">
+                    <button type="button" class="btn btn-light" data-dismiss="modal" onClick="window.location.reload(true)">Play Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- main content (can be swapped out) -->
+    <div class="container" id="content">
+        <!-- math problem -->
+        <div class="row justify-content-md-center math">
+            <div class="col-md-auto" style="border-style: solid;">
+                <h1 id="math-problem">2 + 3 = ?</h1>
+            </div>
+        </div>
+        <!-- timer -->
+        <div class="row justify-content-md-center math">
+            <div class="col-md-auto">
+                <h2 id="timer">00:00:00</h2>
+            </div>
+        </div>
+        <!-- input boxes -->
+        <div class="row justify-content-md-center math">
+            <div class="col-md-4">
+                <label>You</label>
+                <input type="text" class="form-control" id="user-answer" placeholder="Answer">
+            </div>
+            <div class="col-md-2 justify-content-center">
+                <button id="submit" type="button" onclick="submit()" class="btn btn-primary" style="height:100%;width:100%">Submit</button>
+            </div>
+            <div class="col-md-4">
+                <label>Computer</label>
+                <input type="text" class="form-control" id="computer-answer" placeholder="Answer" disabled>
+            </div>
+        </div>
+
+        <!-- big countdown number -->
+        <div class="row justify-content-md-center countdown">
+            <div class="col-md-auto">
+                <h1 id="countdown-number" style="font-size: 2000%;">5</h1>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+        $('.math').hide()
+
+        //
+        var time_start = new Date().getTime();
+
+        var seconds;
+        var x = setInterval(function() {
+            var now = new Date().getTime();
+            var delta = time_start - now;
+
+            seconds = 6 + Math.floor((delta % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown-number").innerHTML = seconds;
+            
+            if (seconds === 0){
+                time_start = new Date().getTime();
+                $('.math').show();
+                $('.countdown').hide();
+            }
+
+        }, 1);
+
+        //
+        function number(min=0, max=10){
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+        function operator(){
+            var operators = ['+', '-', '*', '/'];
+            var output = operators[Math.floor(Math.random() * operators.length)];
+            output = "".concat(" ", output, " ");
+            return output;
+        }
+
+        var output = "".concat(number(), operator(), number(min=1), " = ?");
+
+        document.getElementById('math-problem').innerHTML = output;
+
+        function pad(d) {
+            return (d < 10) ? '0' + d.toString() : d.toString();
+        }
+        function double_pad(d) {
+            var output = d.toString();
+            if (d < 10){
+                output = '00' + output;
+            } else if (d < 100) {
+                output = '0' + output
+            }
+            return output;
+        }
+
+        //
+        var decimals = 2;
+        var minutes, seconds, milliseconds;
+        var x = setInterval(function() {
+            var now = new Date().getTime();
+            var delta = now - time_start;
+
+            minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
+            seconds = Math.floor((delta % (1000 * 60)) / 1000);
+            milliseconds = Math.floor((delta % (10 * 60)) / 10);
+
+            milliseconds = pad(milliseconds);
+
+            var output = "".concat(pad(minutes), ":", pad(seconds), ":", milliseconds);
+            document.getElementById("timer").innerHTML = output;
+
+        }, 1);
+
+        //
+        var problem = document.getElementById('math-problem').innerHTML.slice(0, -3)
+        var solution = eval(problem);
+
+        solution = Math.floor(solution * 10**2) / 10**2
+
+        document.getElementById('computer-answer').value = solution;
+        
+        var now = new Date().getTime();
+        var delta = now - time_start;
+        var comp_seconds = Math.floor((delta % (1000 * 60)) / 1000);
+        var comp_milliseconds = Math.floor((delta % (60)));
+        comp_milliseconds = double_pad(comp_milliseconds);
+
+        //
+        function submit(){
+            console.log("submitted");
+            $('#lost-modal').modal();
+
+            var output;
+            if (minutes != "0") {
+                if (minutes == "1"){
+                    output = "".concat(minutes, " minute ", seconds, '.', milliseconds);
+                } else {
+                    output = "".concat(minutes, " minutes ", seconds, '.', milliseconds);
+                }
+            } else {
+                output = "".concat(seconds, '.', milliseconds);
+            }
+            document.getElementById("player-time").innerHTML = output;
+
+            var comp_output = "".concat(comp_seconds, '.', comp_milliseconds);
+            document.getElementById("computer-time").innerHTML = comp_output;
+
+        }
+    </script>
+</body>
+</html>
