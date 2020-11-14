@@ -37,19 +37,19 @@
     <!-- main content (can be swapped out) -->
     <div class="container" id="content">
         <!-- math problem -->
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-md-center math">
             <div class="col-md-auto" style="border-style: solid;">
                 <h1 id="math-problem">2 + 3 = ?</h1>
             </div>
         </div>
         <!-- timer -->
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-md-center math">
             <div class="col-md-auto">
                 <h2 id="timer">00:00:00</h2>
             </div>
         </div>
         <!-- input boxes -->
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-md-center math">
             <div class="col-md-4">
                 <label>You</label>
                 <input type="text" class="form-control" id="user-answer" placeholder="Answer">
@@ -60,6 +60,13 @@
             <div class="col-md-4">
                 <label>Computer</label>
                 <input type="text" class="form-control" id="computer-answer" placeholder="Answer" disabled>
+            </div>
+        </div>
+
+        <!-- big countdown number -->
+        <div class="row justify-content-md-center math">
+            <div class="col-md-auto">
+                <h1 id="countdown-number" style="font-size: 2000%;">5</h1>
             </div>
         </div>
     </div>
